@@ -12,7 +12,15 @@ nonisolated public struct Send<Intent: Sendable>: Sendable {
 
     /// Sends an intent unless the effect was cancelled in the meantime.
     public func callAsFunction(_ intent: Intent) async {
+        await deliver(intent)
+    }
+
+    // The check runs on the main actor, where cancellation happens. Checked
+    // before the hop instead, a cancel could land in between and a stale intent
+    // would still reach the reducer.
+    @MainActor
+    private func deliver(_ intent: Intent) {
         guard !Task.isCancelled else { return }
-        await handler(intent)
+        handler(intent)
     }
 }
