@@ -1,0 +1,13 @@
+# SwiftLint configuration for MVIKit. The rules live in iOS-Toolkit; this
+# file adds only what is specific to this package.
+# Run `swiftlint --strict` — it must pass with zero violations before any commit.
+
+parent_config: https://raw.githubusercontent.com/Khizanag/iOS-Toolkit/v1.0.0/swiftlint/base.yml
+
+included:
+  - Sources
+  - Tests
+
+excluded:
+  - .build
+  - DerivedData
