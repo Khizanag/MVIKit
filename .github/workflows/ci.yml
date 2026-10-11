@@ -12,6 +12,6 @@ concurrency:
 
 jobs:
   ci:
-    uses: Khizanag/iOS-Toolkit/.github/workflows/ios-ci.yml@v1.1.0
+    uses: Khizanag/iOS-Toolkit/.github/workflows/ios-ci.yml@v1.2.1
     with:
       packages: '["."]'
