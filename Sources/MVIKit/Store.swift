@@ -98,7 +98,7 @@ private extension Store {
         }
     }
 
-    func run(id: EffectID?, _ work: @escaping @Sendable (Send<R.Intent>) async -> Void) {
+    func run(id: EffectID?, _ work: @escaping @concurrent @Sendable (Send<R.Intent>) async -> Void) {
         let key = id ?? makeAnonymousID()
         runningEffects[key]?.task.cancel()
 

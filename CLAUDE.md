@@ -6,7 +6,7 @@ Model-View-Intent for SwiftUI as one dependency-free Swift package, published on
 
 - Zero dependencies, ever. The pitch is "read it in one sitting" — every addition must earn its lines.
 - Platform floor is Observation's: iOS 17, macOS 14, tvOS 17, watchOS 10, visionOS 1. Never use an API newer than that without `@available`.
-- Swift 6, `defaultIsolation(MainActor.self)`; types that cross isolation are `nonisolated` and `Sendable`.
+- Swift 6, `defaultIsolation(MainActor.self)`, plus the `NonisolatedNonsendingByDefault` and `InferIsolatedConformances` upcoming features; types that cross isolation are `nonisolated` and `Sendable`. Effect work stays `@concurrent` so its executor never depends on the consumer's settings.
 - Every public symbol carries a doc comment — the Swift Package Index builds the DocC site from them (`.spi.yml`).
 - The README's code is mirrored in `Tests/MVIKitTests/ReadmeExampleTests.swift`. Change one, change the other.
 - Tests are Swift Testing. `swiftlint --strict` passes with zero violations before every commit.

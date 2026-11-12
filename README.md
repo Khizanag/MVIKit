@@ -42,7 +42,7 @@ Add the package in Xcode with **File → Add Package Dependencies…** and the U
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/Khizanag/MVIKit", from: "1.0.1"),
+    .package(url: "https://github.com/Khizanag/MVIKit", from: "1.1.0"),
 ],
 targets: [
     .target(
@@ -192,7 +192,7 @@ MVIKit is the smallest thing that makes the MVI guarantees hold. Read it before 
 - Swift 6.2 or later (Xcode 26 or later)
 - iOS 17, macOS 14, tvOS 17, watchOS 10, visionOS 1
 
-MVIKit builds with `defaultIsolation(MainActor.self)` in Swift 6 language mode. The value types that cross isolation (`Effect`, `Send`, `EffectID`, `LoadingPhase`) are `nonisolated` and `Sendable`.
+MVIKit builds with `defaultIsolation(MainActor.self)` in Swift 6 language mode, with the approachable concurrency upcoming features (`NonisolatedNonsendingByDefault`, `InferIsolatedConformances`) on. The value types that cross isolation (`Effect`, `Send`, `EffectID`, `LoadingPhase`) are `nonisolated` and `Sendable`. Effect work is `@concurrent`, so it runs off the main actor whether or not your module turns those features on.
 
 ## License
 

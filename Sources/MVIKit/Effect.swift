@@ -21,7 +21,7 @@ nonisolated public struct EffectID: Hashable, Sendable, ExpressibleByStringLiter
 /// as data is what keeps reducers pure.
 nonisolated public struct Effect<Intent: Sendable>: Sendable {
     enum Operation: Sendable {
-        case run(id: EffectID?, work: @Sendable (Send<Intent>) async -> Void)
+        case run(id: EffectID?, work: @concurrent @Sendable (Send<Intent>) async -> Void)
         case cancel(EffectID)
     }
 
@@ -44,9 +44,13 @@ extension Effect {
     /// Pass an `id` to make the work cancellable: a later `.run` with the same
     /// id replaces (cancels) this one, and `.cancel(id)` stops it outright.
     /// Work should check `Task.isCancelled` after suspension points.
+    ///
+    /// Work is `@concurrent`: it runs off the main actor whichever concurrency
+    /// defaults the calling module builds with, and reaches state only through
+    /// `send`.
     public static func run(
         id: EffectID? = nil,
-        _ work: @escaping @Sendable (_ send: Send<Intent>) async -> Void,
+        _ work: @escaping @concurrent @Sendable (_ send: Send<Intent>) async -> Void,
     ) -> Effect {
         Effect(operations: [.run(id: id, work: work)])
     }
